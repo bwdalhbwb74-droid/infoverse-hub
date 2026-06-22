@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --brand-blue: #0284c7;
+    --brand-dark: #0f172a;
+}
+
+[x-cloak] { display: none !important; }
+
+body {
+    background-color: #ffffff;
+    color: #1e293b;
+    transition: background-color 0.3s ease;
+}
+
+.font-arabic { font-family: 'Cairo', sans-serif; }
+.font-sans { font-family: 'Inter', sans-serif; }
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.ad-placeholder {
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.article-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.article-card:hover {
+    transform: translateY(-4px);
+}
+
+#reading-progress {
+    transition: width 0.1s ease;
+}
+
+.faq-accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.prose h2 {
+    font-weight: 900;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--brand-dark);
+}

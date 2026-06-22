@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html x-data="infoVerse()" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" :class="lang === 'ar' ? 'font-arabic' : 'font-sans'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfoVerse Hub | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="glass-nav sticky top-0 z-50 h-20 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">IV</div>
+                <span class="text-2xl font-black text-slate-900" x-text="t('brand')"></span>
+            </a>
+            <button @click="toggleLang" class="px-5 py-2 rounded-full bg-slate-900 text-white text-xs font-bold transition hover:bg-sky-600" x-text="lang === 'ar' ? 'English' : 'العربية'"></button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
+        <section class="text-center max-w-3xl mx-auto space-y-8 relative" @click.away="showSuggestions = false">
+            <h1 class="text-4xl md:text-6xl font-black leading-tight" x-text="t('heroTitle')"></h1>
+            <div class="relative">
+                <input type="text" x-model="searchTerm" @input="showSuggestions = true" :placeholder="t('searchPlaceholder')" class="w-full h-16 ltr:pl-14 rtl:pr-14 rounded-2xl border-2 border-slate-100 focus:border-sky-600 outline-none text-lg">
+                <div class="absolute ltr:left-5 rtl:right-5 top-1/2 -translate-y-1/2 text-slate-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="2"/></svg>
+                </div>
+                <div x-show="showSuggestions && filteredSuggestions.length > 0" class="absolute w-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden text-start">
+                    <template x-for="item in filteredSuggestions">
+                        <button class="w-full px-5 py-3 hover:bg-slate-50 text-sm font-bold text-slate-600 border-b last:border-0 block" x-text="item" @click="searchTerm = item; showSuggestions = false"></button>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <div class="ad-placeholder h-24">Google AdSense: Below Search</div>
+
+        <section class="space-y-6">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400" x-text="t('categoriesTitle')"></h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <template x-for="cat in ['AI', 'Tech', 'Finance', 'Cars', 'Education', 'Travel', 'Gaming']">
+                    <a href="category.html" class="p-5 rounded-2xl border border-slate-50 bg-white flex flex-col items-center gap-3 hover:border-sky-600 transition shadow-sm">
+                        <span class="text-xs font-bold" x-text="cat"></span>
+                    </a>
+                </template>
+            </div>
+        </section>
+
+        <div class="ad-placeholder h-24">Google AdSense: Between Categories</div>
+
+        <div class="grid lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-8 space-y-12">
+                <h3 class="text-2xl font-black" x-text="t('latest')"></h3>
+                <div class="space-y-8">
+                    <template x-for="i in [1,2,3]">
+                        <a href="article.html" class="article-card block p-4 bg-white border border-slate-100 rounded-[2rem] md:flex gap-6">
+                            <img :src="'https://picsum.photos/seed/'+i+'/400/250'" class="md:w-52 h-40 object-cover rounded-2xl">
+                            <div class="space-y-3 py-2">
+                                <span class="text-[10px] font-bold text-sky-600 uppercase">Technology</span>
+                                <h4 class="text-xl font-black" x-text="lang === 'ar' ? 'مستقبل الذكاء الاصطناعي في 2026' : 'The Future of AI in 2026'"></h4>
+                                <p class="text-slate-500 text-sm line-clamp-2">Detailed insights into the upcoming transformations of AI agents and LLMs.</p>
+                            </div>
+                        </a>
+                    </template>
+                </div>
+                <div class="ad-placeholder h-24">Google AdSense: Between Article Listings</div>
+            </div>
+            <aside class="lg:col-span-4 space-y-8">
+                <div class="bg-slate-50 p-8 rounded-3xl">
+                    <h3 class="text-xl font-black mb-6" x-text="t('trending')"></h3>
+                    <div class="space-y-6">
+                        <template x-for="i in [1,2,3,4]">
+                            <a href="article.html" class="flex gap-4 group">
+                                <span class="text-2xl font-black text-slate-200 group-hover:text-sky-600" x-text="'0'+i"></span>
+                                <p class="text-sm font-bold leading-tight" x-text="lang === 'ar' ? 'كيف تختار استثمارك القادم؟' : 'How to choose your next investment?'"></p>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t py-16">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-12 text-center md:text-start">
+            <div class="md:col-span-2 space-y-4">
+                <div class="text-2xl font-black text-sky-900" x-text="t('brand')"></div>
+                <p class="text-slate-400 text-sm max-w-sm" x-text="t('footerDesc')"></p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-xs font-bold uppercase text-slate-300 tracking-widest" x-text="t('links')"></h4>
+                <div class="flex flex-col gap-3 text-sm font-bold text-slate-600">
+                    <a href="about.html" class="hover:text-sky-600" x-text="t('aboutTitle')"></a>
+                    <a href="contact.html" class="hover:text-sky-600" x-text="t('contactTitle')"></a>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-xs font-bold uppercase text-slate-300 tracking-widest" x-text="t('legal')"></h4>
+                <div class="flex flex-col gap-3 text-sm font-bold text-slate-600">
+                    <a href="privacy.html" class="hover:text-sky-600" x-text="t('privacyTitle')"></a>
+                    <a href="terms.html" class="hover:text-sky-600" x-text="t('termsTitle')"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
