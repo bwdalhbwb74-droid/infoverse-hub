@@ -1,106 +1,49 @@
 <!DOCTYPE html>
-<html x-data="infoVerse()" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" :class="lang === 'ar' ? 'font-arabic' : 'font-sans'">
+<html x-data="infoVerse()">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article | InfoVerse Hub</title>
+    <title x-text="t('brand')"></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="fixed top-0 left-0 w-full h-1 z-[60] bg-slate-100">
-        <div id="reading-progress" class="h-full bg-sky-600 w-0"></div>
-    </div>
+<body :class="lang === 'ar' ? 'font-arabic' : 'font-sans'">
+
     <nav class="glass-nav sticky top-0 z-50 h-20 flex items-center">
         <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">IV</div>
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">IV</div>
                 <span class="text-2xl font-black text-slate-900" x-text="t('brand')"></span>
             </a>
-            <button @click="toggleLang" class="px-5 py-2 rounded-full bg-slate-900 text-white text-xs font-bold transition hover:bg-sky-600" x-text="lang === 'ar' ? 'English' : 'العربية'"></button>
+            <button @click="toggleLang()" class="px-5 py-2 rounded-full bg-slate-900 text-white text-xs font-bold transition hover:bg-sky-600"><span x-text="lang === 'ar' ? 'English' : 'العربية'"></span></button>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-4 py-12 space-y-10">
+        <!-- Breadcrumbs Placeholder -->
         <nav class="text-xs font-bold text-slate-400 uppercase tracking-widest flex gap-2">
-            <a href="index.html" x-text="t('home')"></a> <span>/</span> <span class="text-sky-600">Technology</span>
+            <a href="index.html" x-text="t('home')"></a> <span>/</span> <span class="text-sky-600">Article</span>
         </nav>
+
         <header class="space-y-6">
-            <h1 class="text-4xl md:text-6xl font-black leading-tight" x-text="lang === 'ar' ? 'مستقبل الذكاء الاصطناعي في 2026' : 'The Future of AI in 2026'"></h1>
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight">Article Title</h1>
             <div class="flex gap-6 text-[10px] font-bold text-slate-400 uppercase border-y py-4">
-                <span x-text="t('published') + ': 2026/06/24'"></span>
-                <span class="text-green-600" x-text="t('updated') + ': 2026/06/25'"></span>
+                <span x-text="t('published') + ': --/--/----'"></span>
             </div>
         </header>
 
-        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" class="w-full h-64 md:h-[450px] object-cover rounded-[2.5rem] shadow-xl">
+        <div class="w-full aspect-video bg-slate-100 rounded-[2.5rem] flex items-center justify-center text-slate-300">
+            Image Placeholder
+        </div>
 
-        <div class="ad-placeholder h-24">Google AdSense: Below Intro</div>
+        <div class="ad-slot"></div>
 
-        <div class="grid lg:grid-cols-12 gap-10">
-            <aside class="hidden lg:block lg:col-span-3">
-                <div class="sticky top-28 p-6 bg-slate-50 rounded-2xl border space-y-4">
-                    <h4 class="text-[10px] font-black uppercase text-slate-400" x-text="t('toc')"></h4>
-                    <nav class="space-y-3 text-xs font-bold text-slate-600">
-                        <a href="#intro" class="block hover:text-sky-600">1. Introduction</a>
-                        <a href="#future" class="block hover:text-sky-600">2. The Future</a>
-                    </nav>
-                </div>
-            </aside>
-            <div class="lg:col-span-9 prose prose-slate max-w-none">
-                <p id="intro">Article content goes here...</p>
-                <div class="ad-placeholder h-32 my-10">Google AdSense: Middle of Article</div>
-                <h2 id="future">Next Steps</h2>
-                <p>More details...</p>
-
-                <div class="ad-placeholder h-24 my-10">Google AdSense: Before FAQ</div>
-
-                <section class="mt-16 space-y-4">
-                    <h3 class="text-2xl font-black" x-text="t('faq')"></h3>
-                    <details class="faq-accordion border rounded-2xl group">
-                        <summary class="p-5 font-bold cursor-pointer list-none flex justify-between items-center">
-                            <span x-text="lang === 'ar' ? 'هل هذا المقال دقيق؟' : 'Is this article accurate?'"></span>
-                            <svg class="w-4 h-4 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"/></svg>
-                        </summary>
-                        <div class="px-5 pb-5 text-sm text-slate-500">Yes, it is based on latest data.</div>
-                    </details>
-                </section>
-
-                <div class="ad-placeholder h-24 my-10">Google AdSense: After FAQ</div>
-
-                <section class="pt-12 border-t mt-12">
-                    <h3 class="text-2xl font-black mb-8" x-text="t('related')"></h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <a href="#" class="block p-5 border rounded-2xl font-bold hover:text-sky-600">Related Topic 1</a>
-                        <a href="#" class="block p-5 border rounded-2xl font-bold hover:text-sky-600">Related Topic 2</a>
-                    </div>
-                </section>
-            </div>
+        <div class="prose prose-slate max-w-none text-slate-600 leading-loose">
+            <p>Content will be available soon...</p>
         </div>
     </main>
-    <footer class="bg-white border-t py-16">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-12 text-center md:text-start">
-            <div class="md:col-span-2 space-y-4">
-                <div class="text-2xl font-black text-sky-900" x-text="t('brand')"></div>
-                <p class="text-slate-400 text-sm" x-text="t('footerDesc')"></p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-xs font-bold uppercase text-slate-300 tracking-widest" x-text="t('links')"></h4>
-                <div class="flex flex-col gap-3 text-sm font-bold text-slate-600">
-                    <a href="about.html" class="hover:text-sky-600" x-text="t('aboutTitle')"></a>
-                    <a href="contact.html" class="hover:text-sky-600" x-text="t('contactTitle')"></a>
-                </div>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-xs font-bold uppercase text-slate-300 tracking-widest" x-text="t('legal')"></h4>
-                <div class="flex flex-col gap-3 text-sm font-bold text-slate-600">
-                    <a href="privacy.html" class="hover:text-sky-600" x-text="t('privacyTitle')"></a>
-                    <a href="terms.html" class="hover:text-sky-600" x-text="t('termsTitle')"></a>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     <script src="scripts.js"></script>
 </body>
 </html>
