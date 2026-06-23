@@ -1,34 +1,36 @@
 <!DOCTYPE html>
-<html x-data="infoVerse()" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'" :class="lang === 'ar' ? 'font-arabic' : 'font-sans'">
+<html x-data="infoVerse()">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category | InfoVerse Hub</title>
+    <title x-text="activeCategory ? (lang === 'ar' ? activeCategory.ar : activeCategory.en) : t('brand')"></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body :class="lang === 'ar' ? 'font-arabic' : 'font-sans'">
+
     <nav class="glass-nav sticky top-0 z-50 h-20 flex items-center">
         <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">IV</div>
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">IV</div>
                 <span class="text-2xl font-black text-slate-900" x-text="t('brand')"></span>
             </a>
-            <button @click="toggleLang" class="px-5 py-2 rounded-full bg-slate-900 text-white text-xs font-bold transition hover:bg-sky-600" x-text="lang === 'ar' ? 'English' : 'العربية'"></button>
+            <button @click="toggleLang()" class="px-5 py-2 rounded-full bg-slate-900 text-white text-xs font-bold shadow-md"><span x-text="lang === 'ar' ? 'English' : 'العربية'"></span></button>
         </div>
     </nav>
+
     <main class="max-w-7xl mx-auto px-4 py-20">
-        <h1 class="text-5xl font-black mb-12 text-center">Category Name</h1>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <template x-for="i in [1,2,3,4,5,6]">
-                <a href="article.html" class="block p-4 border rounded-3xl hover:border-sky-600 transition">
-                    <img :src="'https://picsum.photos/seed/'+i*10+'/400/250'" class="w-full h-48 object-cover rounded-2xl mb-4">
-                    <h4 class="font-bold text-xl">Article in this category</h4>
-                </a>
-            </template>
+        <div class="text-center space-y-4 mb-20" x-show="activeCategory">
+            <span class="text-5xl" x-text="activeCategory.icon"></span>
+            <h1 class="text-5xl font-black text-slate-900" x-text="lang === 'ar' ? activeCategory.ar : activeCategory.en"></h1>
+        </div>
+
+        <div class="empty-state">
+            <p class="text-slate-400 font-bold" x-text="t('noArticles')"></p>
         </div>
     </main>
+
     <script src="scripts.js"></script>
 </body>
 </html>
